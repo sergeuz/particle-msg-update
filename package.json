@@ -1,0 +1,11 @@
+{
+  "name": "update-msg",
+  "version": "0.1.0",
+  "description": "Helper tool for manipulating message files",
+  "private": true,
+  "main": "update-msg.js",
+  "dependencies": {
+    "printf": "^0.2.5",
+    "lodash": "^4.17.4"
+  }
+}
