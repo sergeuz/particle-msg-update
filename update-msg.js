@@ -4,6 +4,26 @@ const printf = require('printf');
 const fs = require('fs');
 const _ = require('lodash');
 
+function escapeStr(str) {
+  let s = '';
+  for (let i = 0; i < str.length; ++i) {
+    let c = str.charAt(i);
+    switch (c.charCodeAt(0)) {
+      case 0x07: c = '\\a'; break;
+      case 0x08: c = '\\b'; break;
+      case 0x09: c = '\\t'; break;
+      case 0x0a: c = '\\n'; break;
+      case 0x0b: c = '\\v'; break;
+      case 0x0c: c = '\\f'; break;
+      case 0x0d: c = '\\r'; break;
+      case 0x22: c = '\\"'; break;
+      case 0x5c: c = '\\'; break;
+    }
+    s += c;
+  }
+  return s;
+}
+
 // Replaces all printf format specifiers with the string specifier ('%s')
 function simplifyFmtStr(fmt) {
   const f = new printf.Formatter(fmt);
@@ -20,7 +40,7 @@ function simplifyFmtStr(fmt) {
       s += '%s';
     }
   }
-  return s;
+  return escapeStr(s);
 }
 
 function writeHeader(fd) {
